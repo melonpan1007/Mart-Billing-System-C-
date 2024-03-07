@@ -1,0 +1,111 @@
+#include<iostream>
+#include<ctime>
+
+class list {
+public:
+    int id;
+    std::string name;
+    int price;
+    int quantity; // Add quantity member variable
+};
+
+//Creating Bill display function
+void display(list l[], int size, std::string cName, std::string cDate,int cPayment) {
+    int total = 0;
+    int totalQuantity = 0;
+    int totalItems = 0;
+    std::string temp;
+    srand(time(0)); // Seed the random number generator with current time
+    int billNumber = rand() % 9000000000 + 1000000000;
+    std::cout << "\n\n\n";
+    std::cout << "\tBMart-More stuff, less budget...\n"; std::cout << "\t---------------------------------\n";
+    std::cout << "\n";
+    std::cout << "Name: " << cName << "\t\t   Date : " << cDate <<"\t\tBill No: "<<billNumber<<"\n";
+    std::cout << "\n";
+    //printing database of bill how it will get shown
+    for (int i = 0; i < size; i++) {
+        std::cout << "ID :  " << l[i].id << "\t";
+        std::cout << "Item Name : " << l[i].name << "\t";
+        std::cout << "Quantity :  " << l[i].quantity << "\t";
+        std::cout << "Price :  " << l[i].price << "\n";
+        std::cout << "--------------------------------------------------------------\n";
+        total += (l[i].price * l[i].quantity);
+        totalQuantity += l[i].quantity; // Accumulating total quantity
+        totalItems++;
+    }
+    std::cout << "       Items: "<<totalItems<<"\t      Qty:  "<< totalQuantity <<"\t       Amount: "<<total<<std::endl;
+
+    float gst, cgst, sgst, gtotal;
+    cgst = (float)total * 9 / 100;
+    sgst = cgst;
+    gst = sgst + cgst;
+    std::cout << "-------------------------------------------------------------\n";
+    std::cout<<"<-------------------GST BREUP DETAILS------------------------>\n"<<"\tCGST:" << cgst << "\t\tSGST=:" << sgst << "\n\n\t\t  Applied GST:" << gst << std::endl;
+    std::cout <<"--------------------------------------------------------------\n";
+    std::cout << "\n\n";
+    gtotal = gst + total;
+    switch(cPayment)
+  {
+      case 1:
+      temp="Cash";
+      break;
+      case 2:
+      temp="Card";
+      break;
+      case 3:
+      temp="UPI";
+      break;
+  }
+    std::cout << "\t\tGrand total: Rs." << gtotal << "/-"<<"\n"<<"\t\t Payment By: "<<temp;
+    std::cout << "\n\n";
+    std::cout << "\t           Happy Shopping \n";
+    std::cout << "\t\tThanks for Visiting\n";
+    std::cout << "\n\n";
+}
+
+int main(){
+    float total;
+    int i, space, rows, k = 0;
+    for (i = 1; i <= 5; ++i, k = 0) {
+      for (space = 1; space <= 5 - i; ++space) {
+         printf("  ");
+      }
+      while (k != 2 * i - 1) {
+         printf("* ");
+         ++k;
+      }
+      printf("\n");
+   }
+    std::cout << "Welcome to our Storeeee!\n";
+    
+    std::string Name;
+    std::string Date;
+    int TotalItems;
+    int Payment;
+    std::string temp;
+    std::cout << "Enter your Name: \t";
+    std::cin >> Name;
+    std::cout << "Enter today's Date: \t";
+    std::cin >> Date;
+    std::cout << "Enter Total Items: \t";
+    std::cin >> TotalItems;
+    std::cout<<"Enter Payment mode's number(1-3):  1.Cash / 2.Card / 3.UPI -->\t";
+  std::cin>>Payment;
+  
+    
+    //creating an object array now
+    list l[TotalItems];
+    //insert items
+    for (int i = 0; i < TotalItems; i++) {
+        l[i].id = (i + 1);
+        std::cout << "Enter " << (i + 1) << " item name \t";
+        std::cin >> l[i].name;
+        std::cout << "Enter price per item:\t\t";
+        std::cin >> l[i].price;
+        std::cout << "Enter quantity:\t\t";
+        std::cin >> l[i].quantity;
+    }
+    //call display function
+    display(l, TotalItems, Name, Date,Payment);
+    return 0;
+}

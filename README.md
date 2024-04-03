@@ -1,1 +1,1 @@
-This C++ code generates a bill for a mart, displaying the output both in the compiler and in a .txt file format.
+I've created a C++ point-of-sale system that prompts users to input customer details, items purchased, their quantities, and prices. The program then calculates the total amount including taxes and generates a bill. This bill is saved as a text file for record-keeping.
